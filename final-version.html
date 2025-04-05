@@ -1,0 +1,764 @@
+please<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Own Farm - भारतीय किसानों का डिजिटल मार्केटप्लेस</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+  :root {
+    --primary: #2E7D32;
+    --primary-dark: #1B5E20;
+    --secondary: #795548;
+    --accent: #FFD93D;
+    --cream: #96e53c;
+    --gray-light: #F5F5F5;
+    --gray-dark: #424242;
+    --success: #4CAF50;
+    --warning: #FFC107;
+    --danger: #F44336;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+}
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+        /* Enhanced Navbar */
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 1.8em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            width: 300px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        /* Enhanced Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 30px;
+            padding: 100px 30px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Enhanced Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-name {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--gray-dark);
+            margin-bottom: 5px;
+        }
+
+        .profile-role {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--gray-light);
+            border-radius: 10px;
+        }
+
+        .stat-item {
+            font-size: 0.9em;
+            color: var(--gray-dark);
+        }
+
+        /* Enhanced Product Card */
+        .product-card {
+            background: rgb(163, 248, 77);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px 0;
+        }
+
+        .product-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--gray-dark);
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            color: var(--primary);
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-availability {
+            color: var(--success);
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        /* Enhanced Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 350px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .chat-widget:hover {
+            transform: translateY(-5px);
+        }
+
+        .chat-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: var(--gray-light);
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.3s ease forwards;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid var(--primary);
+        }
+
+        .chat-message-content {
+            background: var(--primary);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            max-width: 70%;
+            position: relative;
+        }
+
+        .chat-message.sent {
+            flex-direction: row-reverse;
+        }
+
+        .chat-message.sent .chat-message-content {
+            background: var(--secondary);
+        }
+
+        /* Weather Card */
+        .weather-card {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .weather-title {
+            color: var(--primary);
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .weather-data {
+            display: grid;
+            gap: 10px;
+        }
+
+        .weather-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .weather-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1B5E20;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                padding: 10px 15px;
+            }
+            
+            .search-bar input {
+                width: 200px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }/* Price List Card Styles */
+.price-list-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.price-list-title {
+    color: var(--primary);
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--gray-light);
+    transition: all 0.3s ease;
+}
+
+.price-item:hover {
+    transform: translateX(5px);
+    background: var(--cream);
+}
+
+.crop-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.crop-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.price-value {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.price-note {
+    margin: 20px 0;
+    padding: 10px;
+    background: var(--cream);
+    border-radius: 8px;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gray-dark);
+}
+
+.price-list-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Animation for price changes */
+@keyframes priceUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.price-value.updated {
+    animation: priceUpdate 0.5s ease;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            <span>Own Farm</span>
+        </div>
+        <div class="nav-links">
+            <a href="OWNFARM.html" class="nav-link">होम</a>
+            <a href="market1.html" class="nav-link">बाजार</a>
+           
+            <a href="lens.html" class="nav-link">स्कैनर</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="फसल, उपकरण या उपयोगकर्ता खोजें...">
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="profile-card">
+                <img src="KISAN.jpg" alt="Profile" class="profile-photo">
+                <h2 class="profile-name">राजेश कुमार</h2>
+                <p class="profile-role">किसान</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div>150 कनेक्शन</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-file-alt"></i>
+                        <div>45 पोस्ट</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-handshake"></i>
+                        <div>12 मैच</div>
+                    </div>
+                </div>
+                <div class="farmer-details">
+                    <p><i class="fas fa-map-marker-alt"></i> पंजाब</p>
+                    <p><i class="fas fa-tractor"></i> 10 एकड़ जमीन</p>
+                    <p><i class="fas fa-seedling"></i> गेहूं, धान, सरसों</p>
+                </div>
+                <button class="btn btn-primary">प्रोफ़ाइल अपडेट करें</button>
+            </div>
+
+            <div class="weather-card">
+                <h3 class="weather-title">
+                    <i class="fas fa-cloud-sun"></i>
+                    मौसम का पूर्वानुमान
+                </h3>
+                <div class="weather-data">
+                    <div class="weather-item">
+                        <span>तापमान</span>
+                        <span>28°C</span>
+                    </div>
+                    <div class="weather-item">
+                        <span>आर्द्रता</span>
+                        <span>65%</span>
+                    </div>
+                    <div class="weather-item">
+                        <span>हवा</span>
+                        <span>12 km/h</span>
+                    </div>
+                    <div class="weather-item">
+                        <span>वर्षा</span>
+                        <span>20%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feed">
+            <div class="product-card">
+                <img src="tomatoes.jpg" alt="Fresh Tomatoes" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'">
+                <div class="product-info">
+                    <h3 class="product-title">ताजे टमाटर</h3>
+                    <p class="product-price">₹50/kg</p>
+                    <p class="product-availability">उपलब्ध: 100 kg</p>
+                    <button class="btn btn-primary">संपर्क करें</button>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="wheat.jpg" alt="Organic Wheat" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'">
+                <div class="product-info">
+                    <h3 class="product-title">जैविक गेहूं</h3>
+                    <p class="product-price">₹30/kg</p>
+                    <p class="product-availability">उपलब्ध: 50 kg</p>
+                    <button class="btn btn-primary">संपर्क करें</button>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="rice.jpg" alt="Basmati Rice" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'">
+                <div class="product-info">
+                    <h3 class="product-title">बासमती चावल</h3>
+                    <p class="product-price">₹80/kg</p>
+                    <p class="product-availability">उपलब्ध: 200 kg</p>
+                    <button class="btn btn-primary">संपर्क करें</button>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="mustard.jpg" alt="Mustard" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1618767573019-3c7a919726f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'">
+                <div class="product-info">
+                    <h3 class="product-title">सरसों</h3>
+                    <p class="product-price">₹45/kg</p>
+                    <p class="product-availability">उपलब्ध: 150 kg</p>
+                    <button class="btn btn-primary">संपर्क करें</button>
+                </div>
+            </div>
+        
+            <!-- Adding more product cards with specific images -->
+            <div class="product-card">
+                <img src="potatoes.jpg" alt="Fresh Potatoes" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'">
+                <div class="product-info">
+                    <h3 class="product-title">ताजा आलू</h3>
+                    <p class="product-price">₹25/kg</p>
+                    <p class="product-availability">उपलब्ध: 300 kg</p>
+                    <button class="btn btn-primary">संपर्क करें</button>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="onions.jpg" alt="Fresh Onions" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'">
+                <div class="product-info">
+                    <h3 class="product-title">प्याज</h3>
+                    <p class="product-price">₹35/kg</p>
+                    <p class="product-availability">उपलब्ध: 250 kg</p>
+                    <button class="btn btn-primary">संपर्क करें</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="profile-card">
+                <img src="download2.jpeg" alt="Profile" class="profile-photo">
+                <h2 class="profile-name">प्रिया शर्मा</h2>
+                <p class="profile-role">व्यापारी</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div>120 कनेक्शन</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-file-alt"></i>
+                        <div>35 पोस्ट</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-handshake"></i>
+                        <div>8 मैच</div>
+                    </div>
+                </div>
+                <div class="retailer-details">
+                    <p><i class="fas fa-store"></i> दिल्ली</p>
+                    <p><i class="fas fa-box"></i> 5 स्टोर</p>
+                    <p><i class="fas fa-handshake"></i> 50+ किसान</p>
+                </div>
+                <button class="btn btn-primary">संपर्क करें</button>
+            </div>
+        
+            <!-- New Price List Card -->
+            <div class="price-list-card">
+                <h3 class="price-list-title">
+                    <i class="fas fa-tags"></i>
+                    खरीद मूल्य सूची
+                </h3>
+                <div class="price-list">
+                    <div class="price-item">
+                        <div class="crop-info">
+                            <img src="tomatoes.jpg" alt="Tomatoes" class="crop-thumb" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3'">
+                            <span>टमाटर</span>
+                        </div>
+                        <div class="price-value">₹45/kg</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="crop-info">
+                            <img src="wheat.jpg" alt="Wheat" class="crop-thumb" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3'">
+                            <span>गेहूं</span>
+                        </div>
+                        <div class="price-value">₹28/kg</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="crop-info">
+                            <img src="rice.jpg" alt="Rice" class="crop-thumb" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3'">
+                            <span>चावल</span>
+                        </div>
+                        <div class="price-value">₹75/kg</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="crop-info">
+                            <img src="potatoes.jpg" alt="Potatoes" class="crop-thumb" onerror="this.src='https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3'">
+                            <span>आलू</span>
+                        </div>
+                        <div class="price-value">₹22/kg</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="crop-info">
+                            <img src="onions.jpg" alt="Onions" class="crop-thumb" onerror="this.src='https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?ixlib=rb-4.0.3'">
+                            <span>प्याज</span>
+                        </div>
+                        <div class="price-value">₹32/kg</div>
+                    </div>
+                </div>
+                <div class="price-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span>न्यूनतम खरीद मात्रा: 50kg</span>
+                </div>
+                <button class="btn btn-primary price-list-btn">
+                    <i class="fas fa-phone"></i>
+                    मूल्य चर्चा करें
+                </button>
+            </div>
+        </div>
+  
+
+    <div class="chat-widget">
+        <div class="chat-header">
+            <h3>संदेश</h3>
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="chat-messages">
+            <div class="chat-message">
+                <img src="KISAN.jpg" alt="User" class="chat-avatar">
+                <div class="chat-message-content">
+                    <p>नमस्ते! मैं आपके टमाटर में दिलचस्पी रखता हूं।</p>
+                </div>
+            </div>
+            <div class="chat-message sent">
+                <img src="KISAN.jpg" alt="User" class="chat-avatar">
+                <div class="chat-message-content">
+                    <p>हैलो! ये मेरे खेत से ताजे हैं। आप कितना लेना चाहेंगे?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chat functionality
+            const chatMessages = document.querySelector('.chat-messages');
+            const closeChat = document.querySelector('.fa-times');
+            const chatWidget = document.querySelector('.chat-widget');
+
+            closeChat.addEventListener('click', () => {
+                chatWidget.style.display = 'none';
+            });
+
+            // Add new message after 2 seconds
+            setTimeout(() => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message';
+                messageDiv.innerHTML = `
+                    <img src="KISAN.jpg" alt="User" class="chat-avatar">
+                    <div class="chat-message-content">
+                        <p>क्या आप मेरे अन्य उत्पाद देखना चाहेंगे?</p>
+                    </div>
+                `;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 2000);
+
+            // Add hover effect to product cards
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click effect to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = 'scale(1)';
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>  

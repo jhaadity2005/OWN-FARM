@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Own Farm - Financial Services for Small Farmers</title>
+    <style>
+        :root {
+            --primary: #138808; /* Indian flag green */
+            --secondary: #FF9933; /* Indian flag saffron */
+            --accent: #284775; /* Dark blue */
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --dark: #333333;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --success: #28a745;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Noto Sans', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #0b6e06;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e68a00;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+        }
+        
+        .loan-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .loan-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            width: 350px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .loan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .loan-card-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .loan-card-header h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .loan-card-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .loan-card-body {
+            padding: 25px;
+        }
+        
+        .loan-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .loan-feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .loan-feature-text h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .loan-feature-text p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .loan-card-footer {
+            padding: 0 25px 25px;
+            text-align: center;
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .partner-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .partner-logo {
+            width: 100px;
+            height: 100px;
+            background-color: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 30px;
+        }
+        
+        .partner-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .partner-type {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .step-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .step-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .testimonials {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .testimonials .section-title::after {
+            background-color: var(--white);
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .testimonial-content {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--white);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.2;
+        }
+        
+        .cta {
+            text-align: center;
+            background-color: var(--white);
+            padding: 100px 0;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .scheme-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .scheme-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            width: 350px;
+        }
+        
+        .scheme-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 30px;
+        }
+        
+        .scheme-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .scheme-description {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .eligibility-list {
+            list-style-type: none;
+        }
+        
+        .eligibility-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .check-icon {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        footer {
+            background-color: #1e2d40;
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .footer-contact-icon {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        
+        .tricolor-bar {
+            height: 4px;
+            width: 100%;
+            display: flex;
+        }
+        
+        .color-saffron {
+            flex: 1;
+            background-color: #FF9933;
+        }
+        
+        .color-white {
+            flex: 1;
+            background-color: #FFFFFF;
+        }
+        
+        .color-green {
+            flex: 1;
+            background-color: #138808;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .cta h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tricolor-bar">
+        <div class="color-saffron"></div>
+        <div class="color-white"></div>
+        <div class="color-green"></div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <span>Own Farm</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="DJ1.HTML">Home</a></li>
+                    
+                    
+              <li><a href="query.html">Services</a></li>      <li><a href="market1.html">Marketplace</a></li>
+                   
+                </ul>
+                <div>
+                    <a href="farmer-login.html" class="btn btn-outline">Login</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Financial Support for Small Farmers</h1>
+            <p>Empowering India's small and marginal farmers with easy access to loans, subsidies, and government schemes - all in one place.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn">Apply for Loan</a>
+                <a href="#" class="btn btn-secondary">Check Eligibility</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Farm Loan Services</h2>
+            <div class="loan-options">
+                <div class="loan-card">
+                    <div class="loan-card-header">
+                        <h3>Crop Loans</h3>
+                        <p>Short-term loans for seasonal agricultural operations</p>
+                    </div>
+                    <div class="loan-card-body">
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">₹</div>
+                            <div class="loan-feature-text">
+                                <h4>Up to ₹3 Lakhs</h4>
+                                <p>Loans available at subsidized interest rates</p>
+                            </div>
+                        </div>
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">%</div>
+                            <div class="loan-feature-text">
+                                <h4>4% Interest Rate</h4>
+                                <p>With prompt repayment incentives</p>
+                            </div>
+                        </div>
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">📅</div>
+                            <div class="loan-feature-text">
+                                <h4>12 Month Tenure</h4>
+                                <p>Flexible repayment options after harvest</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loan-card-footer">
+                        <a href="#" class="btn btn-outline">Apply Now</a>
+                    </div>
+                </div>
+                
+                <div class="loan-card">
+                    <div class="loan-card-header" style="background-color: var(--secondary);">
+                        <h3>Equipment Loans</h3>
+                        <p>Finance for agricultural machinery and equipment</p>
+                    </div>
+                    <div class="loan-card-body">
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">₹</div>
+                            <div class="loan-feature-text">
+                                <h4>Up to ₹10 Lakhs</h4>
+                                <p>For tractors, harvesters, and modern equipment</p>
+                            </div>
+                        </div>
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">%</div>
+                            <div class="loan-feature-text">
+                                <h4>8% Interest Rate</h4>
+                                <p>With subsidy linkage options</p>
+                            </div>
+                        </div>
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">📅</div>
+                            <div class="loan-feature-text">
+                                <h4>5 Year Tenure</h4>
+                                <p>EMI options aligned with your income cycle</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loan-card-footer">
+                        <a href="#" class="btn btn-outline">Apply Now</a>
+                    </div>
+                </div>
+                
+                <div class="loan-card">
+                    <div class="loan-card-header" style="background-color: var(--accent);">
+                        <h3>Land Development</h3>
+                        <p>Long-term loans for sustainable farm development</p>
+                    </div>
+                    <div class="loan-card-body">
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">₹</div>
+                            <div class="loan-feature-text">
+                                <h4>Up to ₹15 Lakhs</h4>
+                                <p>For land leveling, irrigation systems, etc.</p>
+                            </div>
+                        </div>
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">%</div>
+                            <div class="loan-feature-text">
+                                <h4>7% Interest Rate</h4>
+                                <p>With government subsidy support</p>
+                            </div>
+                        </div>
+                        <div class="loan-feature">
+                            <div class="loan-feature-icon">📅</div>
+                            <div class="loan-feature-text">
+                                <h4>7 Year Tenure</h4>
+                                <p>Moratorium period available for development</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loan-card-footer">
+                        <a href="#" class="btn btn-outline">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background-color: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">Government Schemes</h2>
+            <div class="scheme-highlights">
+                <div class="scheme-card">
+                    <div class="scheme-icon">🌱</div>
+                    <h3 class="scheme-title">PM-KISAN</h3>
+                    <p class="scheme-description">Direct income support of ₹6,000 per year to eligible farmer families in three equal installments.</p>
+                    <h4 style="margin-bottom: 10px;">Eligibility:</h4>
+                    <ul class="eligibility-list">
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Small and marginal farmers</li>
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Land ownership documentation</li>
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Aadhaar card linked to bank account</li>
+                    </ul>
+                </div>
+                
+                <div class="scheme-card">
+                    <div class="scheme-icon">🌊</div>
+                    <h3 class="scheme-title">PMKSY</h3>
+                    <p class="scheme-description">Pradhan Mantri Krishi Sinchayee Yojana provides support for micro-irrigation and water conservation.</p>
+                    <h4 style="margin-bottom: 10px;">Benefits:</h4>
+                    <ul class="eligibility-list">
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Up to 55% subsidy on micro-irrigation</li>
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Technical support for implementation</li>
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Water conservation infrastructure</li>
+                    </ul>
+                </div>
+                
+                <div class="scheme-card">
+                    <div class="scheme-icon">🌿</div>
+                    <h3 class="scheme-title">PKVY</h3>
+                    <p class="scheme-description">Paramparagat Krishi Vikas Yojana promotes organic farming through cluster approach and certification.</p>
+                    <h4 style="margin-bottom: 10px;">Support Provided:</h4>
+                    <ul class="eligibility-list">
+                        <li class="eligibility-item"><span class="check-icon">✓</span> ₹50,000 per hectare for 3 years</li>
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Certification and marketing support</li>
+                        <li class="eligibility-item"><span class="check-icon">✓</span> Training and capacity building</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Register Online</h3>
+                    <p class="step-description">Create an account with your basic details and farm information</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Check Eligibility</h3>
+                    <p class="step-description">Our system matches you with suitable loan options and schemes</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Upload Documents</h3>
+                    <p class="step-description">Submit required documents digitally through our platform</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Get Approved</h3>
+                    <p class="step-description">Receive loan approval and disbursement to your bank account</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="testimonial-card">
+                <p class="testimonial-content">"I was struggling to expand my farm due to lack of funds. Through Own Farm, I got a ₹2 lakh crop loan and support through PM-KISAN. Now my yield has increased by 40% and I'm able to sell directly to retailers through the platform."</p>
+                <div class="testimonial-author">
+                    <div class="author-image">👨‍🌾</div>
+                    <div class="author-info">
+                        <h4>Ramesh Patel</h4>
+                        <p>Small Farmer, Gujarat</p>
+                    </div>
+                </div>
+                <div class="quote-icon">"</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Banking Partners</h2>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-logo">SBI</div>
+                    <h4 class="partner-name">State Bank of India</h4>
+                    <p class="partner-type">National Bank</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">PNB</div>
+                    <h4 class="partner-name">Punjab National Bank</h4>
+                    <p class="partner-type">National Bank</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">NABARD</div>
+                    <h4 class="partner-name">NABARD</h4>
+                    <p class="partner-type">Apex Development Bank</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">HDFC</div>
+                    <h4 class="partner-name">HDFC Bank</h4>
+                    <p class="partner-type">Private Bank</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">KVB</div>
+                    <h4 class="partner-name">Karur Vysya Bank</h4>
+                    <p class="partner-type">Private Bank</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Grow Your Farm?</h2>
+            <p>Apply for financial assistance and connect directly with retailers to maximize your profits.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn">Apply for Financial Assistance</a>
+                <a href="#" class="btn btn-outline">Explore Marketplace</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Own Farm</h3>
+                    <p>Empowering small farmers across India with financial support and direct market access.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                       
+                        <li><a href="#">Financial Services</a></li>
+                        <li><a href="#">Government Schemes</a></li>
+                        <li><a href="#">Marketplace</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Farmer FAQ</a></li>
+                        <li><a href="#">Documentation Help</a></li>
+                        <li><a href="#">Loan Calculator</a></li>
+                        <li><a href="#">Scheme Eligibility</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>

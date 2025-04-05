@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwnFarm - Agricultural Revolution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <style>
+        :root {
+            --primary: #00A862;
+            --secondary: #FF6B00;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --gray: #F5F5F5;
+            --gray-dark: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white;
+            padding: 0.8rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 45px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 5% 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, #f8f8f8 50%, #ffffff 50%);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            padding-right: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--gray-dark);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Solutions Grid */
+        .solutions {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .solutions-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+        }
+
+        .solution-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .solution-item:hover {
+            background: var(--gray);
+            transform: translateY(-5px);
+        }
+
+        .solution-item i {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .solution-item h4 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 5%;
+            background: var(--gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 4rem;
+            line-height: 1.3;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .feature-content {
+            padding: 2rem;
+        }
+
+        .feature-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-content p {
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-item p {
+            color: var(--gray-dark);
+            font-size: 1.1rem;
+        }
+
+        /* Partners Section */
+        .partners {
+            padding: 100px 5%;
+            background: var(--gray);
+        }
+
+        .partners-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .partner-logo {
+            width: 100%;
+            max-width: 160px;
+            margin: 0 auto;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+            opacity: 0.7;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .solutions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 5% 60px;
+                background: #f8f8f8;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-text {
+                padding-right: 0;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .solutions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+  
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <i class="fas fa-leaf"></i>
+                OwnFarm
+            </a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Building Technologies for the next Agri-Revolution</h1>
+                <p>Transforming agriculture through innovative solutions and smart technology</p>
+            </div>
+            <div class="hero-image">
+                <img src="photo-1505471768190-275e2ad7b3f9.avif" 
+                     alt="Smart Farming">
+            </div>
+        </div>
+    </section>
+
+    <section class="solutions">
+        <div class="solutions-grid">
+            <div class="solution-item">
+                <i class="fas fa-seedling"></i>
+                <h4>Seeds To Market</h4>
+            </div>
+            <div class="solution-item">
+                <i class="fas fa-microscope"></i>
+                <h4>Know Your Soil</h4>
+            </div>
+            <div class="solution-item">
+                <i class="fas fa-box-open"></i>
+                <h4>Agri Input</h4>
+            </div>
+            <div class="solution-item">
+                <i class="fas fa-comments"></i>
+                <h4>Advisory</h4>
+            </div>
+            <div class="solution-item">
+                <i class="fas fa-heart"></i>
+                <h4>Health & Growth</h4>
+            </div>
+            <div class="solution-item">
+                <i class="fas fa-wallet"></i>
+                <h4>Finance</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">Empowering Farmers<br>Across India</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=500" 
+                     class="feature-image" alt="Soil Testing">
+                <div class="feature-content">
+                    <h3>Advanced Soil Testing</h3>
+                    <p>Get detailed insights about your soil health and personalized recommendations</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=500" 
+                     class="feature-image" alt="Expert Advisory">
+                <div class="feature-content">
+                    <h3>Expert Advisory</h3>
+                    <p>Real-time guidance from agricultural experts for better yield</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="keeep.avif" 
+                     class="feature-image" alt="Market Access">
+                <div class="feature-content">
+                    <h3>Market Access</h3>
+                    <p>Direct connection to buyers and better prices for your produce</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>100K+</h3>
+                <p>Farmers Connected</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Villages Reached</p>
+            </div>
+            <div class="stat-item">
+                <h3>50K+</h3>
+                <p>Acres Analyzed</p>
+            </div>
+            <div class="stat-item">
+                <h3>95%</h3>
+                <p>Farmer Satisfaction</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="partners">
+        <h2 class="section-title">Stronger together with "OWNFARM" </h2>
+        <div class="partners-grid">
+            <!-- Add partner logos here -->
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll effect
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
+    <!-- Chat Widget -->
+<div class="chat-widget">
+    <div class="chat-header">
+        <span><i class="fas fa-comments"></i> KISAN :: the Assistant</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="chat-messages">
+        <div class="message bot">
+            नमस्ते! मैं OWNFARM Assistant हूं। आपकी कैसे मदद कर सकता हूं?
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" placeholder="अपना संदेश यहाँ टाइप करें...">
+        <button><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<style>
+.chat-widget {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.3s;
+}
+
+.chat-widget:hover {
+    transform: translateY(-5px);
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #2E7D32, #1B5E20);
+    color: white;
+    padding: 1.2rem;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chat-header:hover {
+    background: linear-gradient(135deg, #1B5E20, #2E7D32);
+}
+
+.chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: #F5F5F5;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 15px;
+    max-width: 80%;
+    animation: fadeIn 0.3s ease;
+}
+
+.message.user {
+    background: #2E7D32;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+
+.message.bot {
+    background: white;
+    color: #333;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.chat-input {
+    display: flex;
+    padding: 1.2rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 0 0 20px 20px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #2E7D32;
+    border-radius: 10px;
+    margin-right: 0.8rem;
+    transition: all 0.3s;
+}
+
+.chat-input input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+}
+
+.chat-input button {
+    padding: 0.8rem 1.5rem;
+    background: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chat-input button:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .chat-widget {
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 20px 20px 0 0;
+    }
+}
+</style>
+
+<script>
+// Chatbot functionality
+const chatHeader = document.querySelector('.chat-header');
+const chatMessages = document.querySelector('.chat-messages');
+const chatInput = document.querySelector('.chat-input input');
+const chatButton = document.querySelector('.chat-input button');
+
+// Bot responses
+const botResponses = {
+    'hello': 'नमस्ते! कैसे मदद कर सकता हूं?',
+    'hi': 'नमस्ते! कैसे मदद कर सकता हूं?',
+    'namaste': 'नमस्ते! कैसे मदद कर सकता हूं?',
+    'price': 'हमारे यहाँ सभी उत्पादों की कीमतें बहुत उचित हैं। किस उत्पाद की जानकारी चाहिए?',
+    'contact': 'आप हमें 1800-123-4567 पर कॉल कर सकते हैं या info@dj.com पर ईमेल कर सकते हैं।',
+    'location': 'हम दिल्ली, मुंबई, और बैंगलोर में स्थित हैं।',
+    'products': 'हमारे यहाँ कृषि उपकरण, बीज, और खाद उपलब्ध हैं।',
+    'help': 'मैं आपकी किस प्रकार सहायता कर सकता हूं?',
+    'default': 'क्षमा करें, मैं आपकी बात समझ नहीं पाया। कृपया दोबारा बताएं या किसी अन्य विषय के बारे में पूछें।'
+};
+
+// Toggle chat window
+chatHeader.addEventListener('click', () => {
+    chatMessages.style.display = chatMessages.style.display === 'none' ? 'block' : 'none';
+});
+
+// Add message to chat
+function addMessage(message, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    messageDiv.textContent = message;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Get bot response
+function getBotResponse(message) {
+    message = message.toLowerCase();
+    for (const [key, response] of Object.entries(botResponses)) {
+        if (message.includes(key)) {
+            return response;
+        }
+    }
+    return botResponses.default;
+}
+
+// Handle send message
+function handleSendMessage() {
+    const message = chatInput.value.trim();
+    if (message) {
+        addMessage(message, true);
+        chatInput.value = '';
+        
+        // Simulate bot thinking
+        setTimeout(() => {
+            const botResponse = getBotResponse(message);
+            addMessage(botResponse);
+        }, 1000);
+    }
+}
+
+// Send message on button click
+chatButton.addEventListener('click', handleSendMessage);
+
+// Send message on Enter key
+chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        handleSendMessage();
+    }
+});
+</script>
+<nav class="navbar">
+    <h1><i class="fas fa-tractor"></i> OWNFARM</h1>
+    <div class="nav-links">
+        
+        <a href="market1.html">Market</a>
+        
+        <a href="final-version.html">profile</a>
+        <a href="query.html" class="services-link">Services</a>
+        <a href="loan.html">Loan</a>
+    </div>
+</nav>
+
+<style>
+    :root {
+        --primary: #2E7D32;
+        --primary-dark: #1B5E20;
+        --secondary: #795548;
+        --accent: #FFA000;
+        --cream: #F1F8E9;
+        --brown-light: #D7CCC8;
+        --brown-dark: #4E342E;
+        --success: #43A047;
+        --warning: #FFA000;
+        --danger: #D32F2F;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        padding: 1rem 2rem;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(46, 125, 50, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .navbar h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-links a{
+        color: white;
+        text-decoration: none;
+        margin-left: 2rem;
+        transition: all 0.3s;
+        position: relative;
+        padding: 0.5rem 0;
+        font-weight: 500;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .nav-links a:hover {
+        color: var(--accent);
+    }
+
+    /* Mobile Menu Styles */
+    .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            flex-direction: column;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links a {
+            margin: 0.5rem 0;
+            padding: 0.5rem 0;
+            width: 100%;
+        }
+
+        .navbar {
+            padding: 1rem;
+        }
+    }
+
+    /* Add animation for scroll */
+    .navbar.scrolled {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        padding: 0.8rem 2rem;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    // Add mobile menu functionality
+    const menuToggle = document.createElement('div');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.querySelector('.navbar').appendChild(menuToggle);
+
+    menuToggle.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+        menuToggle.innerHTML = navLinks.classList.contains('active') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+    });
+
+    // Add scroll effect
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('.nav-links a:not([href="market1.html"])').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+                // Update the script to handle the profile link differently
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the profile link
+        const profileLink = document.querySelector('.profile-link');
+        
+        profileLink.addEventListener('click', function(e) {
+            // Don't prevent default - allow normal navigation
+            // Add a transition effect before navigation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'final-version.html';
+            }, 300);
+        });
+
+            // Close mobile menu if open
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    });
+ 
+</script>
+<!-- Add this inside the body tag, after the navbar -->
+<section class="weather-section" id="weather">
+    <div class="weather-container">
+        <h2 class="section-title">मौसम की जानकारी</h2>
+        <div class="weather-grid">
+            <div class="weather-card current">
+                <div class="weather-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="location">Delhi, India</span>
+                </div>
+                <div class="weather-info">
+                    <i class="fas fa-sun"></i>
+                    <h3>32°C</h3>
+                    <p class="weather-desc">Sunny</p>
+                    <div class="weather-details">
+                        <div class="detail">
+                            <i class="fas fa-tint"></i>
+                            <span>45%</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-wind"></i>
+                            <span>12 km/h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weather-card forecast">
+                <h3>आने वाले दिन</h3>
+                <div class="forecast-list">
+                    <div class="forecast-item">
+                        <span>कल</span>
+                        <i class="fas fa-cloud-sun"></i>
+                        <span>30°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span>परसों</span>
+                        <i class="fas fa-cloud"></i>
+                        <span>28°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span>बुधवार</span>
+                        <i class="fas fa-cloud-rain"></i>
+                        <span>27°C</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weather-card farming-tips">
+                <h3>कृषि सलाह</h3>
+                <div class="tips-list">
+                    <div class="tip">
+                        <i class="fas fa-seedling"></i>
+                        <p>आज बीज बोने के लिए अच्छा दिन है</p>
+                    </div>
+                    <div class="tip">
+                        <i class="fas fa-tint"></i>
+                        <p>सिंचाई की सिफारिश की जाती है</p>
+                    </div>
+                    <div class="tip">
+                        <i class="fas fa-bug"></i>
+                        <p>कीट नियंत्रण की निगरानी करें</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weather-card alerts">
+                <h3>मौसम चेतावनी</h3>
+                <div class="alert-list">
+                    <div class="alert-item warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>कल हल्की बारिश की संभावना</p>
+                    </div>
+                    <div class="alert-item info">
+                        <i class="fas fa-info-circle"></i>
+                        <p>अगले सप्ताह तापमान में वृद्धि</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add this CSS to your existing styles -->
+<style>
+.weather-section {
+    padding-top: 100px; /* Space for fixed navbar */
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--cream), #ffffff);
+}
+
+.weather-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 3rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.weather-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(46, 125, 50, 0.1);
+    transition: all 0.3s ease;
+}
+
+.weather-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(46, 125, 50, 0.2);
+}
+
+.weather-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.weather-info {
+    text-align: center;
+}
+
+.weather-info i {
+    font-size: 4rem;
+    color: var(--warning);
+    margin-bottom: 1rem;
+}
+
+.weather-info h3 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.weather-desc {
+    color: var(--secondary);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+}
+
+.forecast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.forecast-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(46, 125, 50, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.forecast-item:hover {
+    background: rgba(46, 125, 50, 0.1);
+}
+
+.forecast-item i {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.tip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: rgba(46, 125, 50, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.tip:hover {
+    background: rgba(46, 125, 50, 0.1);
+}
+
+.tip i {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.alert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.alert-item.warning {
+    background: rgba(255, 160, 0, 0.1);
+    color: var(--warning);
+}
+
+.alert-item.info {
+    background: rgba(46, 125, 50, 0.1);
+    color: var(--primary);
+}
+
+.alert-item i {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .weather-section {
+        padding-top: 80px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .weather-grid {
+        gap: 1.5rem;
+    }
+
+    .weather-card {
+        padding: 1.5rem;
+    }
+}
+</style>
+
+<!-- Add this JavaScript before the closing body tag -->
+<script>
+// Update weather data
+function updateWeather() {
+    // Simulate real-time weather updates
+    setInterval(() => {
+        const temp = 25 + Math.floor(Math.random() * 10);
+        const humidity = 40 + Math.floor(Math.random() * 20);
+        const wind = 8 + Math.floor(Math.random() * 8);
+
+        document.querySelector('.weather-info h3').textContent = `${temp}°C`;
+        document.querySelector('.weather-details .detail:first-child span').textContent = `${humidity}%`;
+        document.querySelector('.weather-details .detail:last-child span').textContent = `${wind} km/h`;
+    }, 300000); // Update every 5 minutes
+}
+
+// Initialize weather updates
+document.addEventListener('DOMContentLoaded', updateWeather);
+
+// Add weather card animations
+document.querySelectorAll('.weather-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px)';
+    });
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+</script>
+</body>
+</html>

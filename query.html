@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Own Farm - Submit Query</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --secondary: #795548;
+            --accent: #FFA000;
+            --cream: #F1F8E9;
+            --brown-light: #D7CCC8;
+            --brown-dark: #4E342E;
+            --success: #43A047;
+            --warning: #FFA000;
+            --danger: #D32F2F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .query-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .query-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--brown-dark);
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--brown-light);
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 150px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #queryResult {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        #queryResult.success {
+            background: rgba(67, 160, 71, 0.1);
+            color: var(--success);
+            display: block;
+        }
+
+        #queryResult.error {
+            background: rgba(211, 47, 47, 0.1);
+            color: var(--danger);
+            display: block;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--cream);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brown-dark);
+        }
+
+        .contact-item i {
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .query-container {
+                padding: 30px 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="query-container">
+        <h1>Submit Your Inquiry</h1>
+
+        <form id="queryForm">
+            <div class="form-group">
+                <label for="queryText">Enter your detailed query:</label>
+                <textarea id="queryText" name="queryText" placeholder="Please provide as much detail as possible about your inquiry..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Inquiry</button>
+        </form>
+
+        <div id="queryResult"></div>
+
+        <div class="contact-info">
+            <h3>Need immediate assistance?</h3>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@ownfarm.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Mon-Fri: 9AM-6PM</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>123 Farm Street</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const queryText = document.getElementById('queryText').value;
+            const submitBtn = document.querySelector('.submit-btn');
+            const queryResult = document.getElementById('queryResult');
+
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Submitting...';
+            queryResult.style.display = 'none';
+
+            // Simulate API call
+            setTimeout(() => {
+                if (queryText.trim().length > 0) {
+                    // Success case
+                    queryResult.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        Your inquiry has been successfully submitted. We will reach out to you as soon as possible.
+                    `;
+                    queryResult.className = 'success';
+                    document.getElementById('queryText').value = '';
+                } else {
+                    // Error case
+                    queryResult.innerHTML = `
+                        <i class="fas fa-exclamation-circle"></i>
+                        Please enter your query before submitting.
+                    `;
+                    queryResult.className = 'error';
+                }
+
+                // Reset button state
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Submit Inquiry';
+                queryResult.style.display = 'block';
+            }, 1500);
+        });
+    </script>
+</body>
+</html> 

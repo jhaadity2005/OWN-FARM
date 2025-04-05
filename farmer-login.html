@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Own Farm - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --secondary: #FF6B6B;
+            --accent: #FFD93D;
+            --cream: #F1F8E9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary), #1B5E20);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+        }
+
+        .login-title {
+            color: var(--primary);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #666;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-button {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .role-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-button:hover {
+            background: #1B5E20;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-logo">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <h1 class="login-title">Own Farm</h1>
+            <p class="login-subtitle">Digital Marketplace for Indian Farmers</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="role-selector">
+                <button type="button" class="role-button active" data-role="farmer">किसान</button>
+                <button type="button" class="role-button" data-role="retailer">व्यापारी</button>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" name="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" name="password" id="password" required>
+            </div>
+
+            <button type="submit" class="login-button">Sign In</button>
+        </form>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="login-footer">
+            <p>Don't have an account? <a href="register.html">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Demo credentials
+        const DEMO_USERS = {
+            'raiaditya@gmail.com': {
+                password: 'password123',
+                role: 'farmer',
+                name: 'Aditya Rai'
+            },
+            'farmer@ownfarm.com': {
+                password: 'farmer123',
+                role: 'farmer',
+                name: 'Demo Farmer'
+            },
+            'retailer@ownfarm.com': {
+                password: 'retailer123',
+                role: 'retailer',
+                name: 'Demo Retailer'
+            }
+        };
+
+        // Role button handling
+        document.querySelectorAll('.role-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.role-button').forEach(btn => 
+                    btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
+        // Form handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const selectedRole = document.querySelector('.role-button.active').dataset.role;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Check if user exists
+            const user = DEMO_USERS[email];
+            
+            if (user && user.password === password && user.role === selectedRole) {
+                // Store user info in localStorage
+                localStorage.setItem('user', JSON.stringify({
+                    email: email,
+                    name: user.name,
+                    role: user.role
+                }));
+                
+                // Redirect to OWNFARM.html
+                window.location.href = 'DJ1.html';
+            } else {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Invalid email or password';
+            }
+        });
+
+        // Clear error message when input changes
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('input', () => {
+                document.getElementById('errorMessage').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

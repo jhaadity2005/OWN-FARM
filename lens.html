@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Detection</title>
+    <link rel="stylesheet" href="lens1.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Disease Detection</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <label for="file-input" class="upload-label">Upload an image of the crop leaf</label>
+            <input type="file" name="file" id="file-input" accept="image/*" required>
+            <button type="submit" class="upload-button">Upload and Predict</button>
+        </form>
+        <div id="result" class="result"></div>
+
+    
+    <script src="lens3.js"></script>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    h1 {
+        color: #333;
+    }
+    
+    .upload-label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #555;
+    }
+    
+    .upload-button, .weather-button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+    }
+    
+    .upload-button:hover, .weather-button:hover {
+        background-color: #218838;
+    }
+    
+    .result, .weather-result {
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #333;
+    }
+    </style>
+    <script>document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', document.getElementById('file-input').files[0]);
+    
+        fetch('/predict', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerText = `Predicted Disease: ${data.disease}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    
+    document.getElementById('get-weather').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+    
+                fetch(`/weather?lat=${lat}&lon=${lon}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('weather-result').innerText = `Weather Data: ${JSON.stringify(data, null, 2)}`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        } else {
+            document.getElementById('weather-result').innerText = 'Geolocation is not supported by this browser.';
+        }
+    });
+    </script>
+</body>
+</html>

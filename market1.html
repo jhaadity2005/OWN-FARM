@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Own Farm Market - Agricultural Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --secondary: #795548;
+            --accent: #FFA000;
+            --cream: #b2d886;
+            --gray-light: #f5f5f5;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--gray-light);
+        }
+
+        /* Navigation */
+        .market-nav {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background: var(--accent);
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Main Content */
+        .market-content {
+            margin-top: 80px;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Filters Sidebar */
+        .filters {
+            width: 250px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .product-price {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-rating {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Cart Sidebar */
+        .cart-widget {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 300px;
+            background: white;
+            padding: 1rem;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+            z-index: 1001;
+        }
+
+        .cart-widget.active {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-items {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .cart-total {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .market-content {
+                flex-direction: column;
+            }
+
+            .filters {
+                width: 100%;
+                position: static;
+            }
+
+            .cart-widget {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="market-nav">
+        <div class="nav-container">
+            <a href="OWNFARM.html" style="color: white; text-decoration: none;">
+                <h1><i class="fas fa-leaf"></i> Own Farm Market</h1>
+            </a>
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for pesticides, seeds, equipment...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div style="color: white;">
+                <i class="fas fa-shopping-cart" id="cartButton"></i>
+                <span id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="market-content">
+        <aside class="filters">
+            <div class="filter-section">
+                <h3 class="filter-title">Categories</h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" value="pesticides"> कीटनाशक</label>
+                    <label><input type="checkbox" value="seeds"> बीज</label>
+                    <label><input type="checkbox" value="fertilizers"> उर्वरक</label>
+                    <label><input type="checkbox" value="tools"> कृषि उपकरण</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Price Range</h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" value="0-500"> ₹0 - ₹500</label>
+                    <label><input type="checkbox" value="501-1000"> ₹501 - ₹1000</label>
+                    <label><input type="checkbox" value="1001-5000"> ₹1001 - ₹5000</label>
+                    <label><input type="checkbox" value="5000+"> ₹5000+</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Brands</h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" value="syngenta"> Syngenta</label>
+                    <label><input type="checkbox" value="bayer"> Bayer</label>
+                    <label><input type="checkbox" value="dupont"> DuPont</label>
+                    <label><input type="checkbox" value="upl"> UPL</label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="products-grid">
+            <!-- Products will be dynamically added here -->
+        </main>
+
+        <div class="cart-widget">
+            <div class="cart-header">
+                <h3>Shopping Cart</h3>
+                <i class="fas fa-times" id="closeCart"></i>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be added here -->
+            </div>
+            <div class="cart-total">
+                <h4>Total: ₹<span id="cartTotal">0</span></h4>
+                <button class="add-to-cart">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Replace the existing products array with this expanded version
+const products = [
+    {
+        id: 1,
+        name: 'रैपीजेन जीआर',
+        description: 'क्लोरेंट्रानिलिप्रोल 0.4 जीआर - कीट नियंत्रण',
+        price: 2450,
+        image: 'https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?w=500&h=500&fit=crop',
+        category: 'pesticides',
+        rating: 4.5
+    },
+    {
+        id: 2,
+        name: 'एग्रोस्टार केल्सियम नाइट्रेट',
+        description: '25 किग्रा बैग - पौधों के विकास के लिए',
+        price: 1200,
+        image: 'photo-2.avif',
+        category: 'fertilizers',
+        rating: 4.2
+    },
+    {
+        id: 3,
+        name: 'किल एक्स स्प्रे',
+        description: 'थियामेथोक्सम 12.6% + लैम्बडासीहैलोथ्रिन 9.5%',
+        price: 850,
+        image: 'photo-3.webp',
+        category: 'pesticides',
+        rating: 4.7
+    },
+    {
+        id: 4,
+        name: 'रोजतम फंगीसाइड',
+        description: 'एज़ोक्सीस्ट्रोबिन 11% + टेबुकोनाजोल 18.3%',
+        price: 1500,
+        image: 'photo-6.jpeg',
+        category: 'pesticides',
+        rating: 4.3
+    },
+    {
+        id: 5,
+        name: 'ह्यूमिक पावर',
+        description: 'ह्यूमिक और फुल्विक एसिड 50% - 2 किलो',
+        price: 750,
+        image: 'photo-7.jpeg',
+        category: 'fertilizers',
+        rating: 4.6
+    },
+    {
+        id: 6,
+        name: 'एग्रोनिल 80',
+        description: 'फिप्रोनिल 80% डब्लू जी - कीट नियंत्रण',
+        price: 980,
+        image: 'download9.jpeg',
+        category: 'pesticides',
+        rating: 4.4
+    },
+    {
+        id: 7,
+        name: 'पावर जेल',
+        description: 'पौध पोषक तत्व - 500 ग्राम',
+        price: 450,
+        image: 'dj2.jpeg',
+        category: 'fertilizers',
+        rating: 4.8
+    },
+    {
+        id: 8,
+        name: 'न्यूट्रीप्रो बोरॉन',
+        description: 'बोरॉन 20% - 500 ग्राम',
+        price: 580,
+        image: 'owwl.jpeg',
+        category: 'fertilizers',
+        rating: 4.5
+    },
+    {
+        id: 9,
+        name: 'फ्लोरेंस इंसेक्टिसाइड',
+        description: 'कीट नियंत्रण - 500 मिली',
+        price: 1200,
+        image: 'oww.jpeg',
+        category: 'pesticides',
+        rating: 4.6
+    },
+    {
+        id: 10,
+        name: 'स्टेलर ग्रोथ प्रोमोटर',
+        description: 'जिबेरेलिक एसिड 0.001% - 500 मिली',
+        price: 890,
+        image: 'download9.jpeg',
+        category: 'fertilizers',
+        rating: 4.7
+    },
+    {
+        id: 11,
+        name: 'एग्रोस्टार 19:19:19',
+        description: 'संतुलित पोषण - 1 किग्रा',
+        price: 350,
+        image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=500&h=500&fit=crop',
+        category: 'fertilizers',
+        rating: 4.9
+    },
+    {
+        id: 12,
+        name: 'बायोजीन प्लस',
+        description: 'जैविक कीटनाशक - 1 लीटर',
+        price: 780,
+        image: 'photo-7.jpeg',
+        category: 'pesticides',
+        rating: 4.4
+    }
+];
+        // Function to render products
+        function renderProducts(products) {
+            const productsGrid = document.querySelector('.products-grid');
+            productsGrid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p>${product.description}</p>
+                        <div class="product-price">₹${product.price}</div>
+                        <div class="product-rating">
+                            ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))}
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart functionality
+        let cart = [];
+        const cartWidget = document.querySelector('.cart-widget');
+        const cartButton = document.getElementById('cartButton');
+        const closeCart = document.getElementById('closeCart');
+
+        cartButton.addEventListener('click', () => {
+            cartWidget.classList.add('active');
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartWidget.classList.remove('active');
+        });
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cart.push(product);
+                updateCart();
+                cartWidget.classList.add('active');
+            }
+        }
+
+        function updateCart() {
+            const cartItems = document.querySelector('.cart-items');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.textContent = cart.length;
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;">
+                    <div>
+                        <h4>${item.name}</h4>
+                        <p>₹${item.price}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotal.textContent = total;
+        }
+
+        // Initialize page
+        renderProducts(products);
+    </script>
+    <!-- Add this JavaScript code at the end of your market1.html file, just before the closing </body> tag -->
+
+
+    
+
+</body>
+</html>
